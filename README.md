@@ -1312,7 +1312,7 @@ pets.include? 'cat'
 
 ## Error Handling
 
-* Use domain specific errors instead of return values showing success/failure
+* <a name="error-domain-errors"></a> Use domain specific errors instead of return values showing success/failure
 
 ```ruby
 # bad
@@ -1350,7 +1350,7 @@ def finish_guided_session
     render_processing_error!(e)
   end
 ```
-
+<sup>[[link](#error-domain-errors)]</sup>
 
 ## Time
 
