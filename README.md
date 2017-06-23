@@ -47,6 +47,7 @@ programming resources.
 * [Internationalization](#internationalization)
 * [Assets](#assets)
 * [Mailers](#mailers)
+* [Services](#services)
 * [Active Support Core Extensions](#active-support-core-extensions)
 * [Error Handling](#error-handling)
 * [Time](#time)
@@ -1235,6 +1236,22 @@ your application.
   of [sidekiq](https://github.com/mperham/sidekiq) gem.
 <sup>[[link](#background-email)]</sup>
 
+## Services
+
+* Use value objects (owned by your domain) as input parameter (instead of depending on active record) 
+	* <a name="services-params-reduced-interface"></a>Compromise: use a reduced set of the objects interface
+	
+```ruby 
+# good
+user.name
+
+# bad
+user.permissions.first.owner
+```
+<sup>[[link](#services-params-reduced-interface)]</sup>
+
+*  <a name="services-unnecessary-pattern"></a>If your service object gets called from somewhere else than the controller layer, you should extract most of it to your ```domain``` folder (unnecessary service-object-pattern overhead)
+<sup>[[link](#services-unnecessary-pattern)]</sup>
 
 ## Active Support Core Extensions
 
