@@ -332,6 +332,9 @@ render status: :forbidden
   only.
 <sup>[[link](#model-business-logic)]</sup>
 
+* <a name="model-cascading-delete"></a>Use ```dependend: destroy``` on associations and add foreign key constraints in database to prevent against orphaned records.
+<sup>[[link](#model-business-logic)]</sup>
+
 ### ActiveRecord
 
 * <a name="keep-ar-defaults"></a>
