@@ -48,6 +48,7 @@ programming resources.
 * [Assets](#assets)
 * [Mailers](#mailers)
 * [Active Support Core Extensions](#active-support-core-extensions)
+* [Error Handling](#error-handling)
 * [Time](#time)
 * [Bundler](#bundler)
 * [Managing processes](#managing-processes)
@@ -1308,6 +1309,48 @@ pets.include? 'cat'
 0 > 0
 0 < 0
 ```
+
+## Error Handling
+
+* Use domain specific errors instead of return values showing success/failure
+
+```ruby
+# bad
+def finish_guided_session
+  service_result = FcsTraining::FinishSession.guided_finish(params)
+
+  if service_result.success?
+    render json: {}, status: :ok
+  else
+    if service_result.session_already_finished?
+      render_already_finished!
+    elsif service_result.session_not_found?
+      render_session_not_found!
+    elsif  service_result.parameter_invalidation?
+      render_params_invalid!
+    elsif service_result.processing_error?
+      render_processing_error!(service_result.error)
+    end
+  end
+end
+
+
+# good
+def finish_guided_session
+    FcsTraining::FinishSession.guided_finish(params)
+
+    render json: {}, status: :ok
+  rescue FcsTraining::SessionProcessing::SessionAlreadyFinishedError
+    render_already_finished!
+  rescue FcsTraining::SessionProcessing::SessionNotFoundError
+    render_session_not_found!
+  rescue FcsTraining::SessionProcessing::ParameterValidationError
+    render_params_invalid!
+  rescue FcsTraining::SessionProcessing::ProcessingError => e
+    render_processing_error!(e)
+  end
+```
+
 
 ## Time
 
