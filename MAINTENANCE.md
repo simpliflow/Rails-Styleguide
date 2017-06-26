@@ -15,7 +15,7 @@ git remote -v
 git fetch bbatsov
 
 # review changes 
-git diff master bbatsov/master
+git log --no-merges bbatsov/master ^master # '^' needs to be escaped on zsh
 
 # merge them
 git checkout master
