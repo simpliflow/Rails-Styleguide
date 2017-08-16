@@ -1028,22 +1028,6 @@ when you need to retrieve a single record by some attributes.
   `User.human_attribute_name("name")` will return "Full name". These
   translations of the attributes will be used as labels in the views.
 
-
-* <a name="organize-locale-files"></a>
-  Separate the texts used in the views from translations of ActiveRecord
-  attributes. Place the locale files for the models in a folder `locales/models` and the
-  texts used in the views in folder `locales/views`.
-<sup>[[link](#organize-locale-files)]</sup>
-
-  * When organization of the locale files is done with additional directories,
-    these directories must be described in the `application.rb` file in order
-    to be loaded.
-
-      ```ruby
-      # config/application.rb
-      config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
-      ```
-
 * <a name="shared-localization"></a>
   Place the shared localization options, such as date or currency formats, in
   files under the root of the `locales` directory.
@@ -1071,6 +1055,25 @@ when you need to retrieve a single record by some attributes.
 
   ```ruby
   = t '.title'
+  ```
+
+* <a name="flat_localization"></a>
+  Use a flat structure in your localization files.
+<sup>[[link](#flat_localization)]</sup>
+
+  ```
+  # bad
+  en:
+    users:
+      name: 'Name'
+    accounts:
+      name: 'Name'
+    teams:
+      name: 'Name'
+
+  #good
+  en:
+    name: 'Name'
   ```
 
 * <a name="dot-separated-keys"></a>
@@ -1238,10 +1241,10 @@ your application.
 
 ## Services
 
-* Use value objects (owned by your domain) as input parameter (instead of depending on active record) 
+* Use value objects (owned by your domain) as input parameter (instead of depending on active record)
 	* <a name="services-params-reduced-interface"></a>Compromise: use a reduced set of the objects interface
-	
-```ruby 
+
+```ruby
 # good
 user.name
 
@@ -1471,4 +1474,3 @@ you have time to spare:
 * [Everyday Rails Testing with RSpec](https://leanpub.com/everydayrailsrspec)
 * [Rails 4 Test Prescriptions](https://pragprog.com/book/nrtest2/rails-4-test-prescriptions)
 * [Better Specs for RSpec](http://betterspecs.org)
-
