@@ -1460,6 +1460,24 @@ def finish_guided_session
   [foreman](https://github.com/ddollar/foreman) to manage them.
 <sup>[[link](#foreman)]</sup>
 
+## Auto loader rules
+
+Prefer nesting a class within a module instead of using module as part of class name:
+
+  ```ruby
+  module User
+    class Admin
+    end
+  end
+
+  class User::Admin
+  end 
+  ```
+
+If a class is nested within a module you do not have to provide the fully qualified class name.
+In order to avoid naming conflicts do not autoload such classes. Require the class with
+`require_dependency` where it is needed.
+
 # Further Reading
 
 There are a few excellent resources on Rails style, that you should consider if
@@ -1479,21 +1497,3 @@ you have time to spare:
 ![Creative Commons License](http://i.creativecommons.org/l/by/3.0/88x31.png)
 This work is licensed under a [Creative Commons Attribution 3.0 Unported
 License](http://creativecommons.org/licenses/by/3.0/deed.en_US)
-
-## Auto loader rules
-
-Prefer nesting a class within a module instead of using module as part of class name:
-
-  ```ruby
-  module User
-    class Admin
-    end
-  end
-
-  class User::Admin
-  end 
-  ```
-
-If a class is nested within a module you do not have to provide the fully qualified class name.
-In order to avoid naming conflicts do not autoload such classes. Require the class with
-`require_dependency` where it is needed.
