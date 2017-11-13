@@ -1462,21 +1462,18 @@ def finish_guided_session
 
 ## Auto loader rules
 
-Prefer nesting a class within a module instead of using module as part of class name:
+If a class is nested within a module i.e.
 
   ```ruby
   module User
     class Admin
     end
   end
-
-  class User::Admin
-  end 
   ```
 
-If a class is nested within a module you do not have to provide the fully qualified class name.
-In order to avoid naming conflicts do not autoload such classes. Require the class with
-`require_dependency` where it is needed.
+you can get a naming conflict even if you use the fully qualified class name i.e. `User::Admin`, if
+a class `Admin` has already been declared on an other place. In the case of a naming conflict,
+require the class explicitly with the `require_dependency` directive!
 
 # Further Reading
 
