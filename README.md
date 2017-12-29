@@ -53,6 +53,7 @@ programming resources.
 * [Time](#time)
 * [Bundler](#bundler)
 * [Managing processes](#managing-processes)
+* [Auto loader rules](#auto-loader-rules)
 
 ## Configuration
 
@@ -1476,6 +1477,21 @@ def finish_guided_session
   If your projects depends on various external processes use
   [foreman](https://github.com/ddollar/foreman) to manage them.
 <sup>[[link](#foreman)]</sup>
+
+## Auto loader rules
+
+If a class is nested within a module i.e.
+
+  ```ruby
+  module User
+    class Admin
+    end
+  end
+  ```
+
+you can get a naming conflict even if you use the fully qualified class name i.e. `User::Admin`, if
+a class `Admin` has already been declared on an other place. In the case of a naming conflict,
+require the class explicitly with the `require_dependency` directive!
 
 # Further Reading
 
