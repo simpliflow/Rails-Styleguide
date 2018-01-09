@@ -552,6 +552,22 @@ render status: :forbidden
   end
   ```
 
+* <a name="always-return-relation"></a>
+  Never return anything other than ActiveRecord relations in scopes since it may break the ability to chain scope calls or result in unexpected behavior.
+<sup>[[link](#always-return-relation)]</sup>
+
+  ```ruby
+  class User < ActiveRecord::Base
+    # bad: If first returns nil, User.for_issue(issue) returns User.all instead of nil
+    scope :for_issue, ->(issue) { where(issue_id: issue.id).first }
+
+    # good
+    def self.for_issue(issue)
+      where(issue_id: issue.id).first
+    end
+  end
+  ```
+
 * <a name="beware-skip-model-validations"></a>
   Beware of the behavior of the
   [following](http://guides.rubyonrails.org/active_record_validations.html#skipping-validations)
