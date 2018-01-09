@@ -1071,9 +1071,11 @@ when you need to retrieve a single record by some attributes.
     teams:
       name: 'Name'
 
-  #good
+  # good
   en:
-    name: 'Name'
+    user_name: 'Name'
+    account_name: 'Name'
+    team_name: 'Name'
   ```
 
 * <a name="dot-separated-keys"></a>
